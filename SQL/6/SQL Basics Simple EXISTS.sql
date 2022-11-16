@@ -1,0 +1,1 @@
+SELECT * FROM departments WHERE EXISTS (SELECT sales.name FROM sales WHERE sales.department_id = departments.id and sales.price > 98.00);
