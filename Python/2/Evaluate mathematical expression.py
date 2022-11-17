@@ -37,8 +37,8 @@ def calcul(value1, value2, operator):
 def replace(expression, value1, value2, operator):
     return expression.replace(str(value1) + operator + str(value2), str(calcul(value1, value2, operator)))  
 
-# print(calc("1 + 1"))
-# # print(calc("2 - 1"))
-# print(calc("2 * 3"))
-# print(calc("2 / 2"))
-print(calc("6 / 2 + 1 * 4 / 2"))
+calc("1 + 1")
+calc("2 - 1")
+calc("2 * 3")
+calc("2 / 2")
+calc("6 / 2 + 1 * 4 / 2")
