@@ -6,23 +6,25 @@ def calc(expression):
         return None
     # Cherche un signe d'opération
     if re.search(r"[\+\-\*\/]",expression):
-        # Retourne les signes d'opération
-        operators = re.findall(r"[\+\-\*\/]",expression)
-        # Récupère les valeurs avant et après le signe d'opération dans expression
-        sum = 0
-        for operator in operators:
-            values = expression.split(operator)
-            value1 = int(values[0][-1])
-            value2 = int(values[1][0])
-            # print(value1, operator, value2)
-            print(value1, operator, value2)
-            sum += calcul(value1, value2, operator)
-            expression = replace(expression, value1, value2, operator)
+        i = 0
+        while "+" in expression or "-" in expression or "*" in expression or "/" in expression:
+            calculs = re.match(r"(\d+(?:\.\d+)?)[\+\-\*\/](\d+(?:\.\d+)?)",expression)
+            # Récupère les valeurs avant et après le signe d'opération
+            values = re.findall(r"(\d+(?:\.\d+)?)",calculs.group())
+            # Récupère le signe d'opération
+            operator = re.search(r"[\+\-\*\/]",calculs.group()).group()
+            # Fait le calcul
+            sum = calcul(values[0],values[1],operator)
+            # Remplace value1, value2 et operator par le resultat de l'opération
+            expression = replace(expression, values[0], values[1], operator)
+            # break
+            i += 1
         return sum
-    
-        
 
 def calcul(value1, value2, operator):
+    # Change les valeurs en float
+    value1 = float(value1)
+    value2 = float(value2)
     return value1 + value2 if operator == "+" else value1 - value2 if operator == "-" else value1 * value2 if operator == "*" else value1 / value2 if operator == "/" else None
 
 # Fonction qui remplace value1, value2 et operator par le resultat de l'opération
@@ -32,4 +34,4 @@ def replace(expression, value1, value2, operator):
 print(calc("1 + 1"))
 print(calc("2 - 1"))
 print(calc("2 * 3"))
-print(calc("6 / 2 + 1"))
+print(calc("6 / 2 + 1 * 4 / 2"))
